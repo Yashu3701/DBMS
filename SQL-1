@@ -1,0 +1,54 @@
+use library;
+
+ create table publisher(name varchar(20) primary key,address varchar(20),phone int(10));
+
+ create table  book(book_id varchar(20) primary key,title char(20),publisher_name char(20),pub_year int(5),foreign key(publisher_name) references publisher(name) ON Delete cascade);
+
+ create table library_programme(programme_id varchar(20) primary key,programme_name char(20),address varchar(20));
+
+ create table book_authors(book_id varchar(20) primary key,author_name char(10),foreign key(book_id) references book(book_id) ON Delete cascade);
+
+ create table book_copies(book_id varchar(20),programme_id varchar(20),no_of_copies int(100),primary key(book_id,programme_id),foreign key(book_id) references book(book_id) ON Delete cascade,foreign key(programme_id) references library_programme(programme_id) ON Delete cascade);
+
+create table book_lending(book_id varchar(20),programme_id varchar(20),card_no int(100),date_out date,due_date date,primary key(book_id,programme_id,card_no),foreign key(book_id) references book(book_id) ON Delete cascade,foreign key(programme_id) references library_programme(programme_id) ON Delete cascade);
+
+insert into publisher values("PEARSON","BANGALORE","111222");
+insert into publisher values("MCGRAW","NEW_DELHI","333444");
+insert into publisher values("SAPNA","MANGALORE","555666");
+insert into publisher values("OXFORD","NEW_DELHI","666777");
+select *from publisher;
+
+insert into book values("101","DBMS","PEARSON","2005");
+insert into book values("102","SE","MCGRAW","2004");
+insert into book values("103","CO","SAPNA","2010");
+insert into book values("104","DMS","OXFORD","2010");
+select *from book;
+
+
+
+insert into library_programme values("10","P1","BANGALORE");
+insert into library_programme values("11","P2","MANGALORE");
+insert into library_programme values("12","P3","NEW_DELHI");
+insert into library_programme values("13","P4","CHENNAI");
+ select *from library_programme;
+
+
+
+insert into book_lending values("101","10","1","2018-01-10","2018-01-17");
+insert into book_lending values("102","11","2","2018-02-11","2018-02-18");
+insert into book_lending values("103","12","3","2018-03-05","2018-03-12");
+insert into book_lending values("104","13","4","2018-04-01","2018-04-08");
+select *from book_lending;
+
+insert into book_authors values("101","A1");
+insert into book_authors values("102","A2");
+insert into book_authors values("103","A3");
+insert into book_authors values("104","A4");
+select *from book_authors;
+
+
+insert into book_copies values("101","10","550");
+insert into book_copies values("102","11","650");
+insert into book_copies values("103","12","750");
+insert into book_copies values("104","13","850");
+select *from book_copies;
